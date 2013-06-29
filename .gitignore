@@ -1,0 +1,8 @@
+# OS generated files #
+######################
+.project
+.pydevproject
+
+# Python compile files #
+########################
+*.pyc
