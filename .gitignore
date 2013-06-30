@@ -6,3 +6,8 @@
 # Python compile files #
 ########################
 *.pyc
+
+# media and static dirs #
+#########################
+static/
+media/

@@ -1,0 +1,32 @@
+<VirtualHost *:80>
+
+	ServerAdmin webmaster@localhost
+
+        # django app config
+        WSGIScriptAlias / /home/jared/newsblogdjango/news_blog/wsgi.py
+	#WSGIPythonHome /home/jared/newsblogenv
+	#WSGIPythonPath /home/jared/newsblogenv/lib/python2.6/site-packages	
+
+	# media dir config
+	Alias /media/ /home/jared/newsblogdjango/media
+	<Directory /home/jared/newsblogdjango/media>
+	    Order deny,allow
+	    Allow from all
+	</Directory>
+	
+	# static dir config
+	Alias /static/ /home/jared/newsblogdjango/static
+        <Directory /home/jared/newsblogdjango/static>
+            Order deny,allow
+            Allow from all
+        </Directory>
+
+	ErrorLog ${APACHE_LOG_DIR}/error.log
+
+	# Possible values include: debug, info, notice, warn, error, crit,
+	# alert, emerg.
+	LogLevel warn
+
+	CustomLog ${APACHE_LOG_DIR}/access.log combined
+
+</VirtualHost>

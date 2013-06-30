@@ -14,6 +14,14 @@ framework.
 
 """
 import os
+import sys
+
+"""
+Must configure modules for python path to effectively load all modules.
+@todo: There are quirky problems with WSGIPythonPath that I don't care to resolve at this time."""
+path = '/home/jared/newsblogdjango'
+if path not in sys.path:
+    sys.path.append(path)
 
 # We defer to a DJANGO_SETTINGS_MODULE already in the environment. This breaks
 # if running multiple sites in the same mod_wsgi process. To fix this, use
