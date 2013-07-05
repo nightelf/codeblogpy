@@ -9,23 +9,24 @@
 	WSGIDaemonProcess newsblog.server python-path=/home/jared/newsblogdjango:/home/jared/newsblogenv/lib/python2.7/site-packages
 	WSGIProcessGroup newsblog.server	
 
-	# django app config
-	WSGIScriptAlias / /home/jared/newsblogdjango/news_blog/wsgi.py
+        # django app config
+        WSGIScriptAlias / /home/jared/newsblogdjango/news_blog/wsgi.py
  	<Directory /home/jared/newsblogdjango/news_blog>
  	    Order allow,deny
  	    Allow from all
  	</Directory>
+	
 
 	# media dir config
-	Alias /media/ /home/jared/newsblogdjango/media
-	<Directory /home/jared/newsblogdjango/media>
+	Alias /media/ /var/www/newsblogdjango/media/
+	<Directory /var/www/newsblogdjango/media>
 	    Order deny,allow
 	    Allow from all
 	</Directory>
 	
 	# static dir config
-	Alias /static/ /home/jared/newsblogdjango/static
-        <Directory /home/jared/newsblogdjango/static>
+	Alias /static/ /var/www/newsblogdjango/static/
+        <Directory /var/www/newsblogdjango/static>
             Order deny,allow
             Allow from all
         </Directory>
