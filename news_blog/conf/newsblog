@@ -7,10 +7,10 @@
 	
 	# process
 	WSGIDaemonProcess newsblog.server python-path=/home/jared/newsblogdjango:/home/jared/newsblogenv/lib/python2.7/site-packages
-	WSGIProcessGroup newsblog.server	
+	WSGIProcessGroup newsblog.server
 
-        # django app config
-        WSGIScriptAlias / /home/jared/newsblogdjango/news_blog/wsgi.py
+    # django app config
+    WSGIScriptAlias / /home/jared/newsblogdjango/news_blog/wsgi.py
  	<Directory /home/jared/newsblogdjango/news_blog>
  	    Order allow,deny
  	    Allow from all
