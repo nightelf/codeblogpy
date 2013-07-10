@@ -1,17 +1,57 @@
 {% extends "main/base.html" %}
 
 {% block title %}The News Blog{% endblock %}
+{% load staticfiles %}
+{% block css %}
+    {{ block.super }}
+    <link href="{% static "blog/css/style.css" %}" rel="stylesheet" media="screen">
+{% endblock %}
 
 {% block content %}
-
-{% if latest_poll_list %}
+    {% load staticfiles %}
+   <!-- Carousel
+ ================================================== -->
+<div id="myCarousel" class="carousel slide">
+  <div class="carousel-inner">
+    {% if latest_article_list %}
+        {% for article in latest_article_list %}
+        <div class="item">
+          <img src="{% static "blog/slide-01.jpg" %}" alt="">
+          <div class="container">
+            <div class="carousel-caption">
+              <h1>{{ article.title }}</h1>
+              <p class="lead">{{ article.summary }}</p>
+              <a class="btn btn-large btn-primary" href="#">Read Article</a>
+            </div>
+          </div>
+        </div>
+        {% endfor %}
+    {% else %}
+        <div class="item active">
+          <img src="{% static "blog/slide-01.jpg" %}" alt="No Articles yet">
+          <div class="container">
+            <div class="carousel-caption">
+              <h1>Come back again soon...</h1>
+              <p class="lead">We are furiously writing as you read this and we will have content up for you
+              shortly. Sorry for the inconvenience. We know you really want to read our stuff!</p>
+              <a class="btn btn-large btn-primary" href="#">Contact Us</a>
+            </div>
+          </div>
+        </div>
+    {% endif %}
+  </div>
+  <a class="left carousel-control" href="#myCarousel" data-slide="prev">‹</a>
+  <a class="right carousel-control" href="#myCarousel" data-slide="next">›</a>
+</div> <!-- /.carousel -->
+<div class="featurette container">
+{% if latest_article_list %}
     <ul>
     {% for article in latest_article_list %}
         <li><a href="/blog/{{ article.id }}/">{{ article.title }}</a></li>
     {% endfor %}
     </ul>
 {% else %}
-    <p>No articles are available.</p>
+    <h3>No articles are available.</h3>
 {% endif %}
-
+</div>
 {% endblock %}
