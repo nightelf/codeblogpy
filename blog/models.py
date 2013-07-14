@@ -8,7 +8,7 @@ class Author(models.Model):
     picture_file = models.CharField(max_length=40)
     created = models.DateTimeField(auto_now_add=True)
     def __unicode__(self):
-        return self.first_name + self.last_name
+        return u"%s %s" % (self.first_name, self.last_name)
     
 class Article(models.Model):
     title = models.CharField(max_length=255)
@@ -20,4 +20,4 @@ class Article(models.Model):
     modified = models.DateTimeField(auto_now=True)
     published = models.DateTimeField()
     def __unicode__(self):
-        return self.title
+        return u"%s" % (elf.title)
