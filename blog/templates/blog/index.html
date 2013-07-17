@@ -20,7 +20,7 @@
         <div class="carousel-caption">
           <h1>{{ article.title }}</h1>
           <p class="lead">{{ article.summary }}</p>
-          <a class="btn btn-large btn-primary" href="#">Read Article</a>
+          <a class="btn btn-large btn-primary" href="/blog/{{article.slug}}">Read Article</a>
         </div>
       </div>
     </div>
@@ -47,7 +47,7 @@
 {% if latest_article_list %}
     <ul>
     {% for article in latest_article_list %}
-        <li><a href="/blog/{{ article.id }}/">{{ article.title }}</a></li>
+        <li><a href="/blog/{{article.slug}}">{{ article.title }}</a></li>
     {% endfor %}
     </ul>
 {% else %}

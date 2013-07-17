@@ -13,6 +13,9 @@ def index(request):
     return HttpResponse(template.render(context))
 
 def articles(request, article_title):
-    #my_article = get_object_or_404(Article, title=article_title)
-    
-    return HttpResponse("You're looking at aticle: '%s'." % article_title)
+    my_article = get_object_or_404(Article, slug=article_title)
+    template = loader.get_template('blog/article.html')
+    context = RequestContext(request, {
+        'article' : my_article,
+    })
+    return HttpResponse(template.render(context))

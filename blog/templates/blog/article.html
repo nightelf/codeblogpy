@@ -1,0 +1,27 @@
+{% extends "main/base.html" %}
+
+{% block title %}The News Blog{% endblock %}
+{% load staticfiles %}
+{% block css %}
+    {{ block.super }}
+    <link href="{% static "blog/css/style.css" %}" rel="stylesheet" media="screen">
+{% endblock %}
+
+{% block content %}
+    {% load staticfiles %}
+<div id="myCarousel" class="carousel slide">
+  <div class="carousel-inner">
+    <div class="item active">
+      <img src="{% static "blog/slide-01.jpg" %}" alt="">
+      <div class="container">
+        <div class="carousel-caption">
+          <h1>{{ article.title }}</h1>
+          <p class="lead">Author Name</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div>{{ article.body_html }}
+</div>
+{% endblock %}
