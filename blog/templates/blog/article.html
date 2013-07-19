@@ -16,12 +16,15 @@
       <div class="container">
         <div class="carousel-caption">
           <h1>{{ article.title }}</h1>
-          <p class="lead">Author Name</p>
+          <p class="lead">
+            by: {% for author in authors %}{{author.full_name}}{% if not forloop.last %}, {% endif %}{% endfor %}
+          </p>
+          <p>{{ article.published | date:"jS F Y H:i" }}</p>
         </div>
       </div>
     </div>
   </div>
 </div>
-<div>{{ article.body_html }}
+<div class="featurette container">{{ article.body_html }}
 </div>
 {% endblock %}

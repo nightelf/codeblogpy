@@ -9,10 +9,13 @@ class Author(models.Model):
     created = models.DateTimeField(auto_now_add=True)
     def __unicode__(self):
         return u"%s %s" % (self.first_name, self.last_name)
+    def full_name(self):
+        return self.first_name + ' ' + self.last_name
     
 class Article(models.Model):
-    title = models.CharField(max_length=255)
+    title = models.CharField(max_length=255, unique=True,)
     slug = models.SlugField(max_length=255, unique=True, default='')
+    summary = models.CharField(max_length=255, default='')
     body_html = models.TextField()
     body = models.TextField()
     authors = models.ManyToManyField(Author)
@@ -22,3 +25,4 @@ class Article(models.Model):
     published = models.DateTimeField()
     def __unicode__(self):
         return u"%s" % (self.title)
+

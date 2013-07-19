@@ -14,8 +14,10 @@ def index(request):
 
 def articles(request, article_title):
     my_article = get_object_or_404(Article, slug=article_title)
+    authors = my_article.authors.all()
     template = loader.get_template('blog/article.html')
     context = RequestContext(request, {
         'article' : my_article,
+        'authors' : authors
     })
     return HttpResponse(template.render(context))
