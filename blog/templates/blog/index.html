@@ -20,7 +20,7 @@
         <div class="carousel-caption">
           <h1>{{ article.title }}</h1>
           <p class="lead">{{ article.summary }}</p>
-          <a class="btn btn-large btn-primary" href="/blog/{{article.slug}}">Read Article</a>
+          <a class="btn btn-large btn-primary" href="/blog/{{article.slug}}">Read more</a>
         </div>
       </div>
     </div>
@@ -44,14 +44,27 @@
   <a class="right carousel-control"{% if latest_article_list.count < 2 %}style="display:none"{% endif %} href="#myCarousel" data-slide="next">›</a>
 </div> <!-- /.carousel -->
 <div class="featurette container">
-{% if latest_article_list %}
-    <ul>
-    {% for article in latest_article_list %}
-        <li><a href="/blog/{{article.slug}}">{{ article.title }}</a></li>
-    {% endfor %}
-    </ul>
-{% else %}
+  {% for article in latest_article_list %}
+      <div class="container">
+        <div class="">
+          <h1>{{ article.title }}</h1>
+          <p>{{ article.published | date:"jS F Y H:i" }}</p>
+          <p class="lead">{{ article.summary }}</p>
+          <a class="btn btn-large btn-primary" href="/blog/{{article.slug}}">Read more</a>
+        </div>
+      </div>
+  {% empty %}
     <h3>No articles are available.</h3>
-{% endif %}
+  {% endfor %}
 </div>
+{% endblock %}
+{% block script %}
+    {{ block.super }}
+  {% verbatim %}
+    <script type="text/javascript">
+    $('.carousel').carousel({
+      interval: 10000
+    })
+    </script>
+  {% endverbatim %}
 {% endblock %}
