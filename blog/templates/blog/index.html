@@ -45,11 +45,12 @@
 </div> <!-- /.carousel -->
 <div class="featurette container">
   {% for article in latest_article_list %}
+      {% ifchanged %}<span class="label label-inverse">{{ article.published | date:"jS F Y" }}</span><br /><br />{% endifchanged %}
       <div class="container">
-        <div class="">
+        <div class="well well-small">
           <h1>{{ article.title }}</h1>
-          <p>{{ article.published | date:"jS F Y H:i" }}</p>
           <p class="lead">{{ article.summary }}</p>
+          <p>{{ article.published | date:"H:i A" }}</p>
           <a class="btn btn-large btn-primary" href="/blog/{{article.slug}}">Read more</a>
         </div>
       </div>
