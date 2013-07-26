@@ -10,16 +10,13 @@
     {% endblock %}
 </head>
 
-<body>
+<body{% if sidebarscroll %} data-spy="scroll"{% endif %}>
 {% block header %}
     {% include "main/header.html" %}
 {% endblock %}
-
-
     <div id="content">
         {% block content %}{% endblock %}
     </div>
-    
 {% block script %}
 <script src="http://code.jquery.com/jquery.js"></script>
 <script src="{% static "js/bootstrap.min.js" %}"></script>
