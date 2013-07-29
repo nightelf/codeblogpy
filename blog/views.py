@@ -11,7 +11,6 @@ def index(request):
     template = loader.get_template('blog/index.html')
     context = RequestContext(request, {
         'latest_article_list': latest_article_list,
-        'sidebarscroll' : True
     })
     return HttpResponse(template.render(context))
 
@@ -24,6 +23,5 @@ def articles(request, article_title):
     context = RequestContext(request, {
         'article' : my_article,
         'authors' : authors,
-        'sidebarscroll' : False
     })
     return HttpResponse(template.render(context))

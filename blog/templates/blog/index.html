@@ -87,15 +87,31 @@
   {% verbatim %}
     <script type="text/javascript">
     $(function() {
+    	
+    	// init carousel
         $('.carousel').carousel({
           interval: 10000
         });
-        $('#sidebar').scrollspy({
-            offset: 0,
+    	
+        // init scrollspy sidebar
+        $('body').scrollspy({
+            offset: 82,
             target: '#sidebar'
         });
-        $('#sidebar li').removeClass('active');
+        $('#sidebar').scrollspy('refresh');
+        	
+        $('#sidebar li:last-child').removeClass('active');
         $('#sidebar li:first-child').addClass('active');
+        
+        var offset = 80;
+
+        $('#sidebar li a').click(function(event) {
+            event.preventDefault();
+            var cssId = $(this).attr('href');
+            $(cssId)[0].scrollIntoView();
+            scrollBy(0, -offset);
+            history.pushState(null, null, cssId);
+        });
     });
     </script>
   {% endverbatim %}
