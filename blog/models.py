@@ -1,4 +1,5 @@
 from django.db import models
+import datetime
 
 # Create your models here.
 class Author(models.Model):
@@ -23,6 +24,15 @@ class Article(models.Model):
     created = models.DateTimeField(auto_now_add=True)
     modified = models.DateTimeField(auto_now=True)
     published = models.DateTimeField(blank=True, default=None, null=True, db_index=True)
+    
     def __unicode__(self):
         return u"%s" % (self.title)
+    
+    def get_latest_articles(self, page=0, pagesize=10):
+        
+        start_index = int(page) * pagesize
+        end_index = start_index + pagesize
+        
+        return Article.objects.filter(published__lte=datetime.date.today()
+            ).order_by('-published')[start_index:end_index]
 
