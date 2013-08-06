@@ -60,16 +60,22 @@
 
   <div id="articles" class="span9" ng-init='articles={{ article_list_json }}'>
   {% verbatim %}
-    <section id="{{article.fields.published}}" ng-repeat="article in articles">
+   <div ng-repeat="article in articles">
+    <div ng-switch on="article.date.length > 0 ? 1 : 0" >
+      <div ng-switch-when="1"><span class="label label-inverse">{{article.date}}</span><br /><br /></div>
+      <div ng-switch-default></div>
+   </div>
+    <section id="{{article.date}}" >
       <div class="container">
         <div class="well well-small">
-          <h1>{{article.fields.title}}</h1>
-          <p class="lead">{{article.fields.summary}}</p>
-          <p>{{article.fields.published}}</p>
+          <h1>{{article.title}}</h1>
+          <p class="lead">{{article.summary}}</p>
+          <p>{{article.time}}</p>
           <a class="btn btn-large btn-primary" href="/blog/{{article.slug}}">Read more</a>
         </div>
       </div>
     </section>
+   </div>
   {% endverbatim %}
   </div>
  </div>

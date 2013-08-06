@@ -1,4 +1,5 @@
 from django.db import models
+import json
 import datetime
 
 # Create your models here.
@@ -28,11 +29,30 @@ class Article(models.Model):
     def __unicode__(self):
         return u"%s" % (self.title)
     
-    def get_latest_articles(self, page=0, pagesize=10):
+
+def get_latest_articles(page=0, pagesize=10):
+    """fetch the latest articles"""
+    start_index = int(page) * pagesize
+    end_index = start_index + pagesize
+    
+    return Article.objects.filter(published__lte=datetime.date.today()
+        ).order_by('-published')[start_index:end_index]
         
-        start_index = int(page) * pagesize
-        end_index = start_index + pagesize
-        
-        return Article.objects.filter(published__lte=datetime.date.today()
-            ).order_by('-published')[start_index:end_index]
+def get_latest_articles_json(page=0, pagesize=10):
+    """fetch the latest articles in JSON format"""
+    articles = []
+    curdate = None
+    for article in get_latest_articles(page, pagesize):
+        fdate = article.published.strftime('%Y/%m/%d')
+        item = {
+            'title' : article.title,
+            'slug' : article.slug,
+            'summary' : article.summary,
+            'date' : '' if curdate == fdate else fdate,
+            'time' : article.published.strftime('%I:%M %p'),
+            'authors' : [authors.full_name() for authors in article.authors.all()]
+        }
+        articles.append(item)
+        curdate = fdate
+    return json.dumps(articles)
 
