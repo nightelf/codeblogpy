@@ -41,18 +41,15 @@ def get_latest_articles(page=0, pagesize=10):
 def get_latest_articles_json(page=0, pagesize=10):
     """fetch the latest articles in JSON format"""
     articles = []
-    curdate = None
     for article in get_latest_articles(page, pagesize):
-        fdate = article.published.strftime('%Y/%m/%d')
         item = {
             'title' : article.title,
             'slug' : article.slug,
             'summary' : article.summary,
-            'date' : '' if curdate == fdate else fdate,
+            'date' : article.published.strftime('%Y/%m/%d'),
             'time' : article.published.strftime('%I:%M %p'),
             'authors' : [authors.full_name() for authors in article.authors.all()]
         }
         articles.append(item)
-        curdate = fdate
     return json.dumps(articles)
 

@@ -58,12 +58,11 @@
     </ul>
   </div>
 
-  <div id="articles" class="span9" ng-init='articles={{ article_list_json }}'>
+  <div id="articles" class="span9" ng-init='articles={{ article_list_json }}' ng-cloak>
   {% verbatim %}
    <div ng-repeat="article in articles">
-    <div ng-switch on="article.date.length > 0 ? 1 : 0" >
-      <div ng-switch-when="1"><span class="label label-inverse">{{article.date}}</span><br /><br /></div>
-      <div ng-switch-default></div>
+    <div ifchanged="{{article.date}}" >
+      <span class="label label-inverse">{{article.date}}</span><br /><br />
    </div>
     <section id="{{article.date}}" >
       <div class="container">
@@ -87,6 +86,28 @@
   {% verbatim %}
     <script type="text/javascript">
     var mod = angular.module("newsblog", []);
+    mod.directive('ifchanged', function() {
+    	
+    	var changed;
+    	return function(scope, element, attrs) {
+    		 
+    		// used to update the UI
+    		function updateDate() {
+    		 
+    			if (scope.$first) {
+    				changed = null;
+    			}
+    			if (changed !== attrs.ifchanged) {
+    				changed = attrs.ifchanged;
+    			} else {
+    				element.remove();
+    			}
+
+    		}
+    		updateDate();
+    	}
+    });
+    
     $(function() {
     	
     	// init carousel
