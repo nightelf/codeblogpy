@@ -86,6 +86,9 @@
   {% verbatim %}
     <script type="text/javascript">
     var mod = angular.module("newsblog", []);
+
+    // intended to work with ng-repeat.
+    // attr.ifchanged must be evaluated in the html attribute with <element ifchanged="{{myVar}}">.
     mod.directive('ifchanged', function() {
     	
     	var changed;
