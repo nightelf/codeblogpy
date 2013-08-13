@@ -90,24 +90,12 @@
     	
     	var changed;
     	return function(scope, element, attrs) {
-    		 
-    		// used to update the UI
-    		function updateDate() {
-    		 
-    			// init
-    			if (scope.$first) {
-    				changed = null;
-    			}
-    			
-    			// manipulate DOM
-    			if (changed !== attrs.ifchanged) {
+
+    			if (changed !== attrs.ifchanged || scope.$first) {
     				changed = attrs.ifchanged;
     			} else {
     				element.remove();
     			}
-
-    		}
-    		updateDate();
     	}
     });
     
