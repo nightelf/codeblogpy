@@ -94,9 +94,12 @@
     		// used to update the UI
     		function updateDate() {
     		 
+    			// init
     			if (scope.$first) {
     				changed = null;
     			}
+    			
+    			// manipulate DOM
     			if (changed !== attrs.ifchanged) {
     				changed = attrs.ifchanged;
     			} else {
