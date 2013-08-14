@@ -11,7 +11,7 @@
     {% load staticfiles %}
    <!-- Carousel
  ================================================== -->
-<div id="myCarousel" class="carousel slide">
+<div id="myCarousel" class="carousel slide" ng-init='articles={{ article_list_json }}'>
   <div class="carousel-inner">
     {% for article in latest_article_list %}
     <div class="item{% if forloop.first %} active{% endif %}">
@@ -43,26 +43,25 @@
   <a class="left carousel-control"{% if latest_article_list.count < 2 %}style="display:none"{% endif %} href="#myCarousel" data-slide="prev">‹</a>
   <a class="right carousel-control"{% if latest_article_list.count < 2 %}style="display:none"{% endif %} href="#myCarousel" data-slide="next">›</a>
 </div> <!-- /.carousel -->
+
 <div class="featurette container">
  <div class="row">
+ 
+ {% verbatim %}
   <div id="sidebar" class="span2 bs-docs-sidebar">
     <ul class="nav nav-list bs-docs-sidenav affix">
-     {% for articlelink in latest_article_list %}
-     {% ifchanged articlelink.published.year articlelink.published.month articlelink.published.day %}
-      <li>
+      <li ng-repeat="article in articles" ifchanged="{{article.date}}">
         <i class="icon-chevron-right"></i>
-        <a href="#{{ articlelink.published | date:'jS-F-Y' }}"> {{ articlelink.published | date:'jS F Y' }}</a>
+        <a href="#{{article.date}}">{{article.date | date:'EEEE, MMM d'}}</a>
       </li>
-     {% endifchanged %}
-     {% endfor %}
     </ul>
   </div>
 
-  <div id="articles" class="span9" ng-init='articles={{ article_list_json }}' ng-cloak>
-  {% verbatim %}
+  <div id="articles" class="span9" ng-cloak>
+  
    <div ng-repeat="article in articles">
     <div ifchanged="{{article.date}}" >
-      <span class="label label-inverse">{{article.date}}</span><br /><br />
+      <span class="label label-inverse">{{article.date | date:'fullDate'}}</span><br /><br />
    </div>
     <section id="{{article.date}}" >
       <div class="container">
@@ -94,11 +93,11 @@
     	var changed;
     	return function(scope, element, attrs) {
 
-    			if (changed !== attrs.ifchanged || scope.$first) {
-    				changed = attrs.ifchanged;
-    			} else {
-    				element.remove();
-    			}
+   			if (changed !== attrs.ifchanged || scope.$first) {
+   				changed = attrs.ifchanged;
+   			} else {
+   				element.remove();
+   			}
     	}
     });
     
