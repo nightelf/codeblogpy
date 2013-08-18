@@ -9,45 +9,33 @@
 
 {% block content %}
     {% load staticfiles %}
+<div ng-init='articles={{ article_list_json }}'>
+     {% verbatim %}
    <!-- Carousel
  ================================================== -->
-<div id="myCarousel" class="carousel slide" ng-init='articles={{ article_list_json }}'>
+<div id="myCarousel" class="carousel slide" >
   <div class="carousel-inner">
-    {% for article in latest_article_list %}
-    <div class="item{% if forloop.first %} active{% endif %}">
-      <img src="{% static "blog/slide-01.jpg" %}" alt="">
+
+    <div ng-repeat="article in articles|limitTo:4"  ng-class="{active : $first, item : true}">
+      <img src="/static/blog/slide-01.jpg" alt="">
       <div class="container">
         <div class="carousel-caption">
-          <h1>{{ article.title }}</h1>
-          <p class="lead">{{ article.summary }}</p>
-          <a class="btn btn-large btn-primary" href="/blog/{{article.slug}}">Read more</a>
+          <h1>{{article.title}}</h1>
+          <p class="lead">{{article.summary}}</p>
+          <a class="btn btn-large btn-primary" href="/static/blog/{{article.slug}}">Read more</a>
         </div>
       </div>
     </div>
-    
-    {% empty %}
-    <div class="item active">
-      <img src="{% static "blog/slide-01.jpg" %}" alt="No Articles yet">
-      <div class="container">
-        <div class="carousel-caption">
-          <h1>Come back again soon...</h1>
-          <p class="lead">We are furiously writing as you read this and we will have content up for you
-          shortly. Sorry for the inconvenience. We know you really want to read our stuff!</p>
-          <a class="btn btn-large btn-primary" href="#">Contact Us</a>
-        </div>
-      </div>
-    </div>
-    {% endfor %}
+
   </div>
-  {% if latest_article_list.count > 1 %}{% endif %}
-  <a class="left carousel-control"{% if latest_article_list.count < 2 %}style="display:none"{% endif %} href="#myCarousel" data-slide="prev">‹</a>
-  <a class="right carousel-control"{% if latest_article_list.count < 2 %}style="display:none"{% endif %} href="#myCarousel" data-slide="next">›</a>
+  <a class="left carousel-control" ref="#myCarousel" data-slide="prev">‹</a>
+  <a class="right carousel-control" href="#myCarousel" data-slide="next">›</a>
 </div> <!-- /.carousel -->
 
 <div class="featurette container">
  <div class="row">
  
- {% verbatim %}
+
   <div id="sidebar" class="span2 bs-docs-sidebar">
     <ul class="nav nav-list bs-docs-sidenav affix">
       <li ng-repeat="article in articles" ifchanged="{{article.date}}">
@@ -130,5 +118,5 @@
     });
     </script>
   {% endverbatim %}
-  
+</div>
 {% endblock %}
