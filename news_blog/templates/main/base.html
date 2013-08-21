@@ -17,6 +17,9 @@
     <div id="content">
         {% block content %}{% endblock %}
     </div>
+{% block footer %}
+    {% include "main/footer.html" %}
+{% endblock %}
 {% block script %}
 <script src="http://code.jquery.com/jquery.js"></script>
 <script src="{% static "js/bootstrap.min.js" %}"></script>

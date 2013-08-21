@@ -13,7 +13,8 @@ def index(request, page=0):
     template = loader.get_template('blog/index_ng.html')
     context = RequestContext(request, {
         'latest_article_list': latest_article_list,
-        'article_list_json' : get_latest_articles_json()
+        'article_list_json' : get_latest_articles_json(),
+        'page' : page
     })
     return HttpResponse(template.render(context))
 

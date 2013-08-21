@@ -9,14 +9,15 @@
 
 {% block content %}
     {% load staticfiles %}
-<div ng-init='articles={{ article_list_json }}'>
+<div ng-init='init={}; init.page={{ page }}; init.articles={{ article_list_json }}'>
+  <div ng-controller='ArticleCtrl'>
      {% verbatim %}
    <!-- Carousel
  ================================================== -->
 <div id="myCarousel" class="carousel slide" >
-  <div class="carousel-inner">
+  <div class="carousel-inner" ng-cloak>
 
-    <div ng-repeat="article in articles|limitTo:4"  ng-class="{active : $first, item : true}">
+    <div ng-repeat="article in data.articles|limitTo:4"  ng-class="{active : $first, item : true}">
       <img src="/static/blog/slide-01.jpg" alt="">
       <div class="container">
         <div class="carousel-caption">
@@ -38,7 +39,7 @@
 
   <div id="sidebar" class="span2 bs-docs-sidebar">
     <ul class="nav nav-list bs-docs-sidenav affix">
-      <li ng-repeat="article in articles" ifchanged="{{article.date}}">
+      <li ng-repeat="article in data.articles" ifchanged="{{article.date}}">
         <i class="icon-chevron-right"></i>
         <a href="#{{article.date}}">{{article.date | date:'EEEE, MMM d'}}</a>
       </li>
@@ -47,7 +48,7 @@
 
   <div id="articles" class="span9" ng-cloak>
   
-   <div ng-repeat="article in articles">
+   <div ng-repeat="article in data.articles">
     <div ifchanged="{{article.date}}" >
       <span class="label label-inverse">{{article.date | date:'fullDate'}}</span><br /><br />
    </div>
@@ -89,6 +90,16 @@
     	}
     });
     
+    mod.controller('ArticleCtrl', function ($scope) {
+    	
+    	console.log($scope.init.articles);
+    	$scope.data = {
+    		page : $scope.init.page,
+    		articles : $scope.init.articles,
+    		end : false
+    	}
+    });
+    
     $(function() {
     	
     	// init carousel
@@ -118,5 +129,6 @@
     });
     </script>
   {% endverbatim %}
+  </div>
 </div>
 {% endblock %}
