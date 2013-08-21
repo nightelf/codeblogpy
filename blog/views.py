@@ -20,9 +20,7 @@ def index(request, page=0):
 
 def index_json(request, page=0):
     
-    latest_article_list = get_latest_articles(page)
-    data = serializers.serialize("json", latest_article_list)
-    response = HttpResponse(data)
+    response = HttpResponse(get_latest_articles_json(page))
     response['Content-Type'] = 'application/json'
     return response
 
