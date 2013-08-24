@@ -9,8 +9,8 @@
 
 {% block content %}
     {% load staticfiles %}
-<div ng-init='init={}; init.page={{ page }}; init.articles={{ article_list_json }}'>
-  <div ng-controller='ArticleCtrl' scroller="fetch()">
+<div ng-init='init={}; init.page={{ page }}; init.pageSize={{ pageSize }}; init.articles={{ article_list_json }}'>
+  <div ng-controller='ArticleCtrl' nb-window-scroller="fetch()">
      {% verbatim %}
    <!-- Carousel
  ================================================== -->
@@ -23,7 +23,7 @@
         <div class="carousel-caption">
           <h1>{{article.title}}</h1>
           <p class="lead">{{article.summary}}</p>
-          <a class="btn btn-large btn-primary" href="/static/blog/{{article.slug}}">Read more</a>
+          <a class="btn btn-large btn-primary" href="/blog/{{article.slug}}">Read more</a>
         </div>
       </div>
     </div>
@@ -39,7 +39,7 @@
 
   <div id="sidebar" class="span2 bs-docs-sidebar">
     <ul class="nav nav-list bs-docs-sidenav affix">
-      <li ng-repeat="article in data.articles" ifchanged="{{article.date}}">
+      <li ng-repeat="article in data.articles" nb-if-changed="{{article.date}}">
         <i class="icon-chevron-right"></i>
         <a href="#{{article.date}}">{{article.date | date:'EEEE, MMM d'}}</a>
       </li>
@@ -49,7 +49,7 @@
   <div id="articles" class="span9" ng-cloak>
   
    <div ng-repeat="article in data.articles">
-    <div ifchanged="{{article.date}}" >
+    <div nb-if-changed="{{article.date}}" >
       <span class="label label-inverse">{{article.date | date:'fullDate'}}</span><br /><br />
    </div>
     <section id="{{article.date}}" >
@@ -76,35 +76,50 @@
     <script type="text/javascript">
     var mod = angular.module("newsblog", []);
 
-    // intended to work with ng-repeat.
-    // attr.ifchanged must be evaluated in the html attribute with <element ifchanged="{{myVar}}">.
-    mod.directive('ifchanged', function() {
+    /* Tells if the user has scrolled to the bottom of the page */
+    mod.factory('$isPageBottom', function() {
+    	return function() {
+            // 100px is fudgefactor so that user doesn't have to scroll to very bottom.
+            return $(document).height() <= $(window).scrollTop() + $(window).height() + 100
+        }	
+    });
+    
+   /* Tells if the user has scrolled to the top of the page   */
+    mod.factory('$isPageTop', function() {
+        return function() {
+            // 30px is fudgefactor so that user doesn't have to scroll to very top.
+            return  $(window).scrollTop() < 30;
+        }   
+    });
+    
+    /* intended to work with ng-repeat.
+       attr.nbIfChanged must be evaluated in the html attribute with <element nb-if-changed="{{myVar}}">. */
+    mod.directive('nbIfChanged', function() {
     	
     	var changed;
     	return function(scope, element, attrs) {
 
-   			if (changed !== attrs.ifchanged || scope.$first) {
-   				changed = attrs.ifchanged;
+   			if (changed !== attrs.nbIfChanged || scope.$first) {
+   				changed = attrs.nbIfChanged;
    			} else {
    				element.remove();
    			}
     	}
     });
     
-    mod.directive("scroller", function ($parse, $window) {
+    mod.directive("nbWindowScroller", function ($parse, $window) {
     	
     	return function(scope, element, attr) {
 
     		angular.element($window).bind('scroll', function() {
-            	scope.$apply(attr.scroller);
+            	scope.$apply(attr.nbWindowScroller);
             });
         };
     });
     
-    mod.controller('ArticleCtrl', function ($scope, $http, $templateCache) {
+    mod.controller('ArticleCtrl', function ($scope, $http, $templateCache, $isPageBottom) {
     	
-    	var pageSize = 2;
-    	console.log($scope.init.articles);
+    	var pageSize = $scope.init.pageSize; console.log(pageSize);
     	$scope.data = {
     		page : $scope.init.page,
     		articles : $scope.init.articles,
@@ -117,7 +132,7 @@
     	
     	$scope.fetch = function() {
 
-    		if ($scope.isDocumentEnd() && !$scope.data.isLoading && !$scope.data.end) {
+    		if ($isPageBottom() && !$scope.data.isLoading && !$scope.data.end) {
     			$scope.data.isLoading = true;
 	    		$http({
 	   				method: 'get',
@@ -143,12 +158,6 @@
 	    		});
 	    	}
     	};
-    	
-    	$scope.isDocumentEnd = function() {
-    		
-    		// 100px is fudgefactor so that they don't have to scroll to very bottom.
-    		return $(document).height() <= $(window).scrollTop() + $(window).height() + 100
-    	}
     });
     
     $(function() {

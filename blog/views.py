@@ -6,21 +6,23 @@ from django.shortcuts import get_object_or_404
 import datetime
 from django.core import serializers
 
+pageSize = 2
+
 def index(request, page=0):
 
     # define indicies
-    latest_article_list = get_latest_articles_json(page)
     template = loader.get_template('blog/index_ng.html')
     context = RequestContext(request, {
-        'latest_article_list': latest_article_list,
-        'article_list_json' : get_latest_articles_json(),
-        'page' : page
+
+        'article_list_json' : get_latest_articles_json(page, pageSize),
+        'page' : page,
+        'pageSize' : pageSize
     })
     return HttpResponse(template.render(context))
 
 def index_json(request, page=0):
     
-    response = HttpResponse(get_latest_articles_json(page))
+    response = HttpResponse(get_latest_articles_json(page, pageSize))
     response['Content-Type'] = 'application/json'
     return response
 

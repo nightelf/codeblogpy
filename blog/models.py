@@ -30,7 +30,7 @@ class Article(models.Model):
         return u"%s" % (self.title)
     
 
-def get_latest_articles(page=0, pagesize=2):
+def get_latest_articles(page=0, pagesize=10):
     """fetch the latest articles"""
     start_index = int(page) * pagesize
     end_index = start_index + pagesize
@@ -38,7 +38,7 @@ def get_latest_articles(page=0, pagesize=2):
     return Article.objects.filter(published__lte=datetime.date.today()
         ).order_by('-published')[start_index:end_index]
         
-def get_latest_articles_json(page=0, pagesize=2):
+def get_latest_articles_json(page=0, pagesize=10):
     """fetch the latest articles in JSON format"""
     articles = []
     for article in get_latest_articles(page, pagesize):
