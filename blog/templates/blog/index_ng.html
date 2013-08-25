@@ -75,21 +75,21 @@
   {% verbatim %}
     <script type="text/javascript">
     var mod = angular.module("newsblog", []);
-
-    /* Tells if the user has scrolled to the bottom of the page */
-    mod.factory('$isPageBottom', function() {
-    	return function() {
-            // 100px is fudgefactor so that user doesn't have to scroll to very bottom.
-            return $(document).height() <= $(window).scrollTop() + $(window).height() + 100
-        }	
-    });
     
-   /* Tells if the user has scrolled to the top of the page   */
-    mod.factory('$isPageTop', function() {
-        return function() {
-            // 30px is fudgefactor so that user doesn't have to scroll to very top.
-            return  $(window).scrollTop() < 30;
-        }   
+    /* returns page state related info */ 
+    mod.factory('$pageInfo', function() {
+    	return {
+    		 /* Tells if the user has scrolled to the bottom of the page */
+    		isBottom : function() {
+                // 100px is fudgefactor so that user doesn't have to scroll to very bottom.
+                return $(document).height() <= $(window).scrollTop() + $(window).height() + 100
+            },
+            /* Tells if the user has scrolled to the top of the page   */
+            isTop : function() {
+                // 30px is fudgefactor so that user doesn't have to scroll to very top.
+                return  $(window).scrollTop() < 30;
+            } 
+    	}
     });
     
     /* intended to work with ng-repeat.
@@ -117,7 +117,7 @@
         };
     });
     
-    mod.controller('ArticleCtrl', function ($scope, $http, $templateCache, $isPageBottom) {
+    mod.controller('ArticleCtrl', function ($scope, $http, $templateCache, $pageInfo) {
     	
     	var pageSize = $scope.init.pageSize; console.log(pageSize);
     	$scope.data = {
@@ -132,7 +132,7 @@
     	
     	$scope.fetch = function() {
 
-    		if ($isPageBottom() && !$scope.data.isLoading && !$scope.data.end) {
+    		if ($pageInfo.isBottom() && !$scope.data.isLoading && !$scope.data.end) {
     			$scope.data.isLoading = true;
 	    		$http({
 	   				method: 'get',
