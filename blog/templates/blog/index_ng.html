@@ -37,8 +37,8 @@
  <div class="row">
  
 
-  <div id="sidebar" class="span2 bs-docs-sidebar">
-    <ul class="nav nav-list bs-docs-sidenav affix">
+  <div id="sidebar" class="span2 bs-docs-sidebar" data-spy="affix" data-offset-top="300">
+    <ul class="nav nav-list bs-docs-sidenav">
       <li ng-repeat="article in data.articles" nb-if-changed="{{article.date}}">
         <i class="icon-chevron-right"></i>
         <a href="#{{article.date}}">{{article.date | date:'EEEE, MMM d'}}</a>
