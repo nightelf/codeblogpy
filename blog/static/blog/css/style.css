@@ -54,6 +54,9 @@ ul.nav > li {
 .carousel-caption .btn {
     margin-top: 10px;
 }
+.date-headline {
+    color:#550055; font-weight: bold;
+}
 .marketing .span4 {
     text-align: center;
 }
@@ -173,7 +176,7 @@ ul.nav > li {
     box-shadow: 0 0px 6px 4px rgba(0, 0, 0, 0.10);
     margin: 10px 0 0;
     padding: 0;
-    width: 175px;
+    width: 250px;
 }
 .bs-docs-sidenav > li > a {
     border: 1px solid #E5E5E5;

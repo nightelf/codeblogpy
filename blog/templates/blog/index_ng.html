@@ -36,8 +36,8 @@
 <div class="featurette container">
  <div class="row">
  
-
-  <div id="sidebar" class="span2 bs-docs-sidebar" data-spy="affix" data-offset-top="300">
+ <div class="col-md-3"> 
+  <div id="sidebar" class="bs-docs-sidebar" data-spy="affix" data-offset-top="300">
     <ul class="nav nav-list bs-docs-sidenav">
       <li ng-repeat="article in data.articles" nb-if-changed="{{article.date}}">
         <i class="icon-chevron-right"></i>
@@ -45,20 +45,23 @@
       </li>
     </ul>
   </div>
-
-  <div id="articles" class="span9" ng-cloak>
+ </div>
+ 
+  <div id="articles" class="col-md-9" ng-cloak>
   
    <div ng-repeat="article in data.articles">
     <div nb-if-changed="{{article.date}}" >
-      <span class="label label-inverse">{{article.date | date:'fullDate'}}</span><br /><br />
+      <span class="date-headline">{{article.date | date:'fullDate'}}</span><br /><br />
    </div>
-    <section id="{{article.date}}" >
-      <div class="container">
-        <div class="well well-small">
-          <h1>{{article.title}}</h1>
-          <p class="lead">{{article.summary}}</p>
-          <p>{{article.time}}</p>
-          <a class="btn btn-large btn-primary" href="/blog/{{article.slug}}">Read more</a>
+    <section id="{{article.date}}">
+    <div class="panel panel-default">
+        <div class="panel-heading">
+          <h3 class="panel-title">{{article.title}}</h3>
+        </div>
+        <div class="panel-body">
+          {{article.summary}}<br />
+          {{article.time}}
+          <a class="btn btn-sm btn-primary" href="/blog/{{article.slug}}">Read more</a>
         </div>
       </div>
     </section>
