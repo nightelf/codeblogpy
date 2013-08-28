@@ -47,7 +47,7 @@ def get_latest_articles_json(page=0, pagesize=10):
             'slug' : article.slug,
             'summary' : article.summary,
             'date' : article.published.strftime('%Y-%m-%d'),
-            'time' : article.published.strftime('%I:%M %p'),
+            'time' : article.published.strftime('%-I:%M %p'),
             'authors' : [authors.full_name() for authors in article.authors.all()]
         }
         articles.append(item)

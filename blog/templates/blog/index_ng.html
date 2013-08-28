@@ -14,7 +14,7 @@
      {% verbatim %}
    <!-- Carousel
  ================================================== -->
-<div id="myCarousel" class="carousel slide" >
+<div id="myCarousel" class="carousel slide">
   <div class="carousel-inner" ng-cloak>
 
     <div ng-repeat="article in data.articles|limitTo:4"  ng-class="{active : $first, item : true}">
@@ -50,7 +50,7 @@
   <div id="articles" class="col-md-9" ng-cloak>
   
    <div ng-repeat="article in data.articles">
-    <div nb-if-changed="{{article.date}}" >
+    <div nb-if-changed="{{article.date}}">
       <span class="date-headline">{{article.date | date:'fullDate'}}</span><br /><br />
    </div>
     <section id="{{article.date}}">
@@ -60,7 +60,7 @@
         </div>
         <div class="panel-body">
           {{article.summary}}<br />
-          {{article.time}}
+          <h6>{{article.time}}, by <span ng-repeat="author in article.authors">{{author}}<span ng-show="!$last">, </span></span></h6>
           <a class="btn btn-sm btn-primary" href="/blog/{{article.slug}}">Read more</a>
         </div>
       </div>
