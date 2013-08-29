@@ -13,7 +13,9 @@ ul.nav > li {
 	font-weight: bold;
 }
 .carousel {
-    margin-bottom: 60px;
+    margin-bottom: 20px;
+    margin-left: -20px;
+    margin-right: -20px;
 }
 .carousel .container {
     position: relative;
@@ -108,12 +110,6 @@ ul.nav > li {
     max-width: 40%;
 }
 
-.carousel {
-    margin-left: -20px;
-    margin-right: -20px;
-}
-.carousel .container {
-}
 .carousel .item {
     height: 300px;
 }

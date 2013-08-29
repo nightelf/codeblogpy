@@ -37,7 +37,7 @@
  <div class="row">
  
  <div class="col-md-3"> 
-  <div id="sidebar" class="bs-docs-sidebar" data-spy="affix" data-offset-top="300">
+  <div id="sidebar" class="bs-docs-sidebar" data-spy="affix" data-offset-top="260">
     <ul class="nav nav-list bs-docs-sidenav">
       <li ng-repeat="article in data.articles" nb-if-changed="{{article.date}}">
         <i class="icon-chevron-right"></i>
@@ -60,7 +60,7 @@
         </div>
         <div class="panel-body">
           {{article.summary}}<br />
-          <h6>{{article.time}}, by <span ng-repeat="author in article.authors">{{author}}<span ng-show="!$last">, </span></span></h6>
+          <h6>{{article.time}}, by <span ng-repeat="author in article.authors"><a class="author-popover" href="javascript: void(0);" data-content="go to profile" data-original-title="{{author}}" data-toggle="popover">{{author}}</a><span ng-show="!$last">, </span></span></h6>
           <a class="btn btn-sm btn-primary" href="/blog/{{article.slug}}">Read more</a>
         </div>
       </div>
@@ -189,6 +189,8 @@
             scrollBy(0, -offset);
             history.pushState(null, null, cssId);
         });
+        $('.author-popover').popover({ trigger : 'click', placement : 'top'});
+        
     });
     </script>
   {% endverbatim %}
