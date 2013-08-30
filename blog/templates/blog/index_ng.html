@@ -60,7 +60,7 @@
         </div>
         <div class="panel-body">
           {{article.summary}}<br />
-          <h6>{{article.time}}, by <span ng-repeat="author in article.authors"><a class="author-popover" href="javascript: void(0);" data-content="go to profile" data-original-title="{{author}}" data-toggle="popover">{{author}}</a><span ng-show="!$last">, </span></span></h6>
+          <h6>{{article.time}}, by <span ng-repeat="author in article.authors"><a class="author-popover" nb-author-popover href="javascript: void(0);" data-content="go to profile" data-original-title="{{author}}" data-toggle="popover">{{author}}</a><span ng-show="!$last">, </span></span></h6>
           <a class="btn btn-sm btn-primary" href="/blog/{{article.slug}}">Read more</a>
         </div>
       </div>
@@ -120,9 +120,17 @@
         };
     });
     
+    mod.directive("nbAuthorPopover", function () {
+        
+        return function(scope, element, attr) {
+
+            $(element).popover({ trigger : 'click', placement : 'top'});
+        };
+    });
+    
     mod.controller('ArticleCtrl', function ($scope, $http, $templateCache, $pageInfo) {
     	
-    	var pageSize = $scope.init.pageSize; console.log(pageSize);
+    	var pageSize = $scope.init.pageSize;
     	$scope.data = {
     		page : $scope.init.page,
     		articles : $scope.init.articles,
@@ -189,7 +197,7 @@
             scrollBy(0, -offset);
             history.pushState(null, null, cssId);
         });
-        $('.author-popover').popover({ trigger : 'click', placement : 'top'});
+        //$('.author-popover').popover({ trigger : 'click', placement : 'top'});
         
     });
     </script>
