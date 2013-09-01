@@ -59,4 +59,6 @@ INSTALLED_APPS = (
     'south',
     'news_blog',
     'blog',
+    'mobile',
+    'writer',
 )
