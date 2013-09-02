@@ -1,0 +1,34 @@
+{% extends "mobile/base.html" %}
+
+{% block title %}The News Blog{% endblock %}
+{% load staticfiles %}
+{% block css %}
+    {{ block.super }}
+{% endblock %}
+{% block header %}
+  <div data-role="header">
+    <h1>Code Blog</h1>
+  </div>
+{% endblock %}
+{% block content %}
+  <div data-role="content">
+    <ul data-role="listview" data-inset="true">
+      {% for article in article_list %}
+         {% ifchanged article.published.year article.published.month article.published.day %}
+          <li data-role="list-divider" role="heading">{{ article.published | date:'jS F Y' }}</li>
+        {% endifchanged %}
+        <li><a href="#">{{ article.title }}</a></li>
+      {% empty %}
+        <li>There are no articles available at this time</li>
+      {% endfor %}
+    </ul>
+  </div>
+{% endblock %}
+{% block footer %}
+  <div data-role="footer">
+    <h1>footer</h1>
+  </div>
+{% endblock %}
+{% block script %}
+    {{ block.super }}
+{% endblock %}

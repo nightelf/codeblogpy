@@ -1,0 +1,29 @@
+{% spaceless %}
+<!DOCTYPE html>
+<html lang="en" ng-app="newsblog">
+<head>
+    <meta name="viewport" content="width=device-width">
+    <title>{% block title %}News Blog Mobile{% endblock %}</title>
+    {% load staticfiles %}
+    {% block css %}
+      <link rel="stylesheet" href="http://code.jquery.com/mobile/1.3.2/jquery.mobile-1.3.2.min.css" />
+      <link rel="stylesheet" href="/static/mobile/vendor/jquery-mobile/nb-mobile.min.css" />
+    {% endblock %}
+</head>
+
+<body>
+{% block header %}
+{% endblock %}
+  {% block content %}
+
+  {% endblock %}
+{% block footer %}
+{% endblock %}
+{% block script %}
+  <script src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
+  <script src="http://code.jquery.com/mobile/1.3.2/jquery.mobile-1.3.2.min.js"></script>
+{% endblock %}
+
+</body>
+</html>
+{% endspaceless %}

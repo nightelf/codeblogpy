@@ -11,15 +11,15 @@ pageSize = 2
 def index(request, page=0):
 
     # define indicies
-    template = loader.get_template('blog/index_ng.html')
+    template = loader.get_template('mobile/index.html')
     context = RequestContext(request, {
 
-        'article_list_json' : get_latest_articles_json(page, pageSize),
+        'article_list' : get_latest_articles(page, pageSize),
         'page' : page,
         'pageSize' : pageSize
     })
     #return HttpResponse(template.render(context))
-    return HttpResponse("index page")
+    return HttpResponse(template.render(context))
 
 def index_json(request, page=0):
     
