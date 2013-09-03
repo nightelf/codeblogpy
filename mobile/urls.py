@@ -8,6 +8,8 @@ urlpatterns = patterns('',
     url(r'^$', 'mobile.views.index', name='home'),
     url(r'^(\d{1,3})$', 'mobile.views.index', name='index'),
     url(r'^article/([.\w+-]+)$', 'mobile.views.article', name='article'),
+    url(r'^navigation/', 'mobile.views.nav', name='nav'),
+    url(r'^contact/', 'mobile.views.contact', name='contact'),
     url(r'^json/(\d{1,3})$', 'mobile.views.index_json', name='index_json')
     
     # Examples:

@@ -2,28 +2,38 @@
 <!DOCTYPE html>
 <html lang="en" ng-app="newsblog">
 <head>
-    <meta name="viewport" content="width=device-width">
+    <meta name="viewport" content="width=device-width, initial-scale=1"> 
     <title>{% block title %}News Blog Mobile{% endblock %}</title>
     {% load staticfiles %}
     {% block css %}
       <link rel="stylesheet" href="http://code.jquery.com/mobile/1.3.2/jquery.mobile-1.3.2.min.css" />
       <link rel="stylesheet" href="/static/mobile/vendor/jquery-mobile/nb-mobile.min.css" />
+      <script src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
+      <script src="http://code.jquery.com/mobile/1.3.2/jquery.mobile-1.3.2.min.js"></script>
     {% endblock %}
 </head>
 
 <body>
+<div data-role="page" id="{% block pageId %}{% endblock %}">
 {% block header %}
+  <div data-role="header">
+    <a data-corners="true" data-shadow="true" data-iconshadow="true" data-wrapperels="span" data-iconpos="notext" data-icon="home" href="/m" title="Home"></a>
+    <a data-corners="true" data-shadow="true" data-iconshadow="true" data-wrapperels="span" data-iconpos="notext" data-icon="bars" href="/m/navigation" title="Navigation"></a>
+    <h1>Code Blog</h1>
+  </div>
 {% endblock %}
   {% block content %}
 
   {% endblock %}
 {% block footer %}
+  <div data-role="footer">
+    <h1>footer</h1>
+  </div>
 {% endblock %}
 {% block script %}
-  <script src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
-  <script src="http://code.jquery.com/mobile/1.3.2/jquery.mobile-1.3.2.min.js"></script>
-{% endblock %}
 
+{% endblock %}
+</div>
 </body>
 </html>
 {% endspaceless %}

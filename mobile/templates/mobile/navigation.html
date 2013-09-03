@@ -1,0 +1,24 @@
+{% extends "mobile/base.html" %}
+{% block title %}The News Blog: {{ article.title }}{% endblock %}
+{% load staticfiles %}
+{% block css %}
+    {{ block.super }}
+{% endblock %}
+{% block pageId %}navigation{% endblock %}
+{% block header %}
+  {{ block.super }}
+{% endblock %}
+{% block content %}
+  <div data-role="content">
+    <ul class="ui-listview" data-role="listview">
+      <li><a href="/m">home</a></li>
+      <li><a href="/m/contact">contact</a></li>
+    </ul>
+  </div>
+{% endblock %}
+{% block footer %}
+  {{ block.super }}
+{% endblock %}
+{% block script %}
+    {{ block.super }}
+{% endblock %}

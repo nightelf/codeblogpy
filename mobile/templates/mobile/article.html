@@ -1,0 +1,22 @@
+{% extends "mobile/base.html" %}
+{% block title %}The News Blog: {{ article.title }}{% endblock %}
+{% load staticfiles %}
+{% block css %}
+    {{ block.super }}
+{% endblock %}
+{% block pageId %}article{% endblock %}
+{% block header %}
+  {{ block.super }}
+{% endblock %}
+{% block content %}
+  <div data-role="content">
+    <h3>{{article.title}}</h3>
+    <div>{{article.body_html}}</div>
+  </div>
+{% endblock %}
+{% block footer %}
+  {{ block.super }}
+{% endblock %}
+{% block script %}
+    {{ block.super }}
+{% endblock %}

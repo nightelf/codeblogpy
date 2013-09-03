@@ -5,10 +5,9 @@
 {% block css %}
     {{ block.super }}
 {% endblock %}
+{% block pageId %}index{% endblock %}
 {% block header %}
-  <div data-role="header">
-    <h1>Code Blog</h1>
-  </div>
+  {{ block.super }}
 {% endblock %}
 {% block content %}
   <div data-role="content">
@@ -17,7 +16,7 @@
          {% ifchanged article.published.year article.published.month article.published.day %}
           <li data-role="list-divider" role="heading">{{ article.published | date:'jS F Y' }}</li>
         {% endifchanged %}
-        <li><a href="#">{{ article.title }}</a></li>
+        <li><a href="/m/article/{{ article.slug }}">{{ article.title }}</a></li>
       {% empty %}
         <li>There are no articles available at this time</li>
       {% endfor %}
@@ -25,9 +24,7 @@
   </div>
 {% endblock %}
 {% block footer %}
-  <div data-role="footer">
-    <h1>footer</h1>
-  </div>
+  {{ block.super }}
 {% endblock %}
 {% block script %}
     {{ block.super }}

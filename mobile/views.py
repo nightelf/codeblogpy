@@ -28,14 +28,22 @@ def index_json(request, page=0):
     return response
 
 def article(request, article_title):
-    my_article = get_object_or_404(
-        Article, slug=article_title, published__lte=datetime.date.today()
-    )
+    my_article = get_object_or_404(Article, slug=article_title, published__lte=datetime.date.today())
     authors = my_article.authors.all()
-    template = loader.get_template('blog/article.html')
+    template = loader.get_template('mobile/article.html')
     context = RequestContext(request, {
         'article' : my_article,
         'authors' : authors,
     })
     #return HttpResponse(template.render(context))
-    return HttpResponse("article page")
+    return HttpResponse(template.render(context))
+
+def nav(request):
+    
+    template = loader.get_template('mobile/navigation.html')
+    return HttpResponse(template.render(RequestContext(request, {})))
+
+def contact(request):
+    
+    template = loader.get_template('mobile/contact.html')
+    return HttpResponse(template.render(RequestContext(request, {})))
