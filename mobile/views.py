@@ -2,9 +2,9 @@
 from django.http import HttpResponse
 from django.template import RequestContext, loader
 from blog.models import Article, get_latest_articles, get_latest_articles_json
+from mobile.form.contact import ContactForm
 from django.shortcuts import get_object_or_404
 import datetime
-from django.core import serializers
 
 pageSize = 2
 
@@ -45,5 +45,17 @@ def nav(request):
 
 def contact(request):
     
+    success = False
+    if request.method == 'POST':
+        form = ContactForm(request.POST)
+        if form.is_valid():
+            #process email here
+            success = True
+    else:
+        form = ContactForm()
+        
     template = loader.get_template('mobile/contact.html')
-    return HttpResponse(template.render(RequestContext(request, {})))
+    return HttpResponse(template.render(RequestContext(request, {
+       'contact_form' : form,
+       'success' : success
+    })))

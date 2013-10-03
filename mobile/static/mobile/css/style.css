@@ -1,0 +1,20 @@
+ul.errorlist {
+    list-style-type: none
+}
+ul.errorlist li {
+    background-color: #F2DEDE;
+    color: #B94A48;
+    border: 1px solid #EED3D7;
+    border-radius: 4px 4px 4px 4px;
+    margin-bottom: 20px;
+    padding: 15px;
+}
+
+.alert-success {
+    background-color: #DFF0D8;
+    border: 1px solid #D6E9C6;
+    color: #468847;
+    border-radius: 4px 4px 4px 4px;
+    margin-bottom: 20px;
+    padding: 15px;
+}

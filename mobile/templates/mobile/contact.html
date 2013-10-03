@@ -10,12 +10,17 @@
 {% endblock %}
 {% block content %}
   <div data-role="content">
+    
+    {% if success %}
+        <p class="alert-success">Thank you. Your email was successfully sent.</p>
+    {% else %}
     <h3>Email Us</h3>
     <form action="/m/contact/" method="post">
       {% csrf_token %}
-      <textarea name="message"></textarea>
+      {{ contact_form.as_p }}
       <input type="submit" name="submit" value="send" />
     </form>
+    {% endif %}
   </div>
 {% endblock %}
 {% block footer %}
